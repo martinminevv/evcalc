@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EVCalc - Profile</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- LOADING OVERLAY -->
+  <div class="loading-overlay">
+    <div class="spinner"></div>
+    <div class="loading-text">Зареждане…</div>
+  </div>
+
+  <!-- HEADER -->
+  <header>
+    <a href="home.html" class="logo" style="text-decoration:none;color:inherit">
+      <div class="logo-icon">⚡</div>
+      <span>EV<span>Calc</span></span>
+    </a>
+    <nav>
+      <a href="#calculator" class="active">Калкулатор</a>
+      <a href="#results">Резултати</a>
+      <a href="profile.html">👤 Профил</a>
+      <a href="auth.html" id="authNavLink">🔑 Вход</a>
+    </nav>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero" style="padding:3rem 2rem 2rem">
+    <div class="hero-badge">👤 Личен профил</div>
+    <h1 style="font-size:clamp(1.8rem,4vw,2.8rem)">Моят <em>автомобил</em></h1>
+    <p>Запазете параметрите на вашия електромобил и те ще се зареждат автоматично при всяко изчисление.</p>
+  </section>
+
+  <main style="max-width:600px;margin:0 auto;padding:0 1.5rem 5rem;position:relative;z-index:1">
+
+    <!-- NOT LOGGED IN NOTICE -->
+    <div id="notLoggedIn" style="display:none" class="card" style="margin-bottom:1.5rem">
+      <div style="text-align:center;padding:1rem 0">
+        <div style="font-size:2rem;margin-bottom:0.75rem">🔒</div>
+        <div style="font-size:1rem;font-weight:700;margin-bottom:0.5rem">Нужен е акаунт</div>
+        <div style="font-size:0.85rem;color:var(--muted);margin-bottom:1.25rem;line-height:1.6">
+          Трябва да влезете в профила си, за да запазите и заредите данни за вашия автомобил.
+        </div>
+        <a href="auth.html"
+          style="display:inline-block;padding:0.65rem 1.5rem;background:linear-gradient(135deg,var(--accent),#0099cc);
+                 color:#000;font-weight:800;font-size:0.9rem;border-radius:10px;text-decoration:none;transition:opacity 0.2s"
+          onmouseover="this.style.opacity='0.85'" onmouseout="this.style.opacity='1'">
+          🔑 Влез / Регистрирай се
+        </a>
+      </div>
+    </div>
+
+    <!-- PROFILE FORM -->
+    <div id="profileForm" style="display:none">
+
+      <!-- User info bar -->
+      <div id="userBar"
+        style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem;
+               padding:0.75rem 1rem;background:var(--surface);border:1px solid var(--border);
+               border-radius:12px;font-size:0.82rem">
+        <div>
+          <span style="color:var(--muted)">Влезли като </span>
+          <span id="userEmail" style="color:var(--accent);font-weight:700;font-family:var(--mono)"></span>
+        </div>
+        <button id="logoutBtn"
+          style="background:none;border:1px solid var(--border);color:var(--muted);padding:0.3rem 0.75rem;
+                 border-radius:6px;font-size:0.75rem;cursor:pointer;font-family:var(--sans);transition:all 0.2s"
+          onmouseover="this.style.borderColor='var(--danger)';this.style.color='var(--danger)'"
+          onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--muted)'">
+          Изход
+        </button>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-icon purple">🚗</div>
+          <h2>Моят автомобил<small>Параметри за изчисление на разход</small></h2>
+        </div>
+
+        <div class="field">
+          <label for="profileCarName">🚗 Наименование на автомобила</label>
+          <input type="text" id="profileCarName" placeholder="напр. Tesla Model 3, VW ID.4…" />
+        </div>
+
+        <div class="field-row">
+          <div class="field" style="margin-bottom:0">
+            <label for="profileBattery">🔋 Капацитет на батерията (kWh)</label>
+            <input type="number" id="profileBattery" min="10" max="200" step="0.5" value="75"
+              placeholder="напр. 75" />
+          </div>
+          <div class="field" style="margin-bottom:0">
+            <label for="profileRange">📏 Реален обхват (км)</label>
+            <input type="number" id="profileRange" min="50" max="1000" step="1" value="400"
+              placeholder="напр. 400" />
+          </div>
+        </div>
+
+        <div style="margin-top:1.25rem;padding:0.9rem 1rem;background:var(--surface);border-radius:10px;
+                    border:1px solid var(--border);display:flex;align-items:center;justify-content:space-between">
+          <div>
+            <div style="font-size:0.72rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.07em;font-weight:700;margin-bottom:0.2rem">
+              ⚡ Изчислен разход
+            </div>
+            <div style="font-size:0.75rem;color:var(--muted)">Батерия ÷ Обхват × 100</div>
+          </div>
+          <div id="profileConsumption"
+            style="font-family:var(--mono);font-size:1.2rem;font-weight:700;color:var(--accent)">
+            —
+          </div>
+        </div>
+
+        <!-- Error / success message -->
+        <div id="profileMsg" style="display:none;margin-top:1rem;padding:0.75rem 1rem;border-radius:10px;
+             font-size:0.85rem;font-weight:600;text-align:center"></div>
+
+        <button id="saveBtn" onclick="saveProfile()"
+          style="width:100%;margin-top:1.25rem;padding:0.9rem;background:linear-gradient(135deg,var(--accent),#0099cc);
+                 color:#000;font-family:var(--sans);font-size:1rem;font-weight:800;border:none;border-radius:12px;
+                 cursor:pointer;letter-spacing:0.02em;transition:all 0.2s"
+          onmouseover="this.style.opacity='0.88'" onmouseout="this.style.opacity='1'">
+          💾 Запази профила
+        </button>
+
+        <div style="text-align:center;margin-top:1rem">
+          <a href="home.html"
+            style="font-size:0.85rem;color:var(--muted);text-decoration:none;transition:color 0.2s"
+            onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--muted)'">
+            🔙 Към калкулатора
+          </a>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <span>ЕВКалк</span> — Калкулатор за разход на електромобил &nbsp;·&nbsp;
+    Made with ⚡ in Bulgaria
+  </footer>
+
+  <script type="module">
+    import { app, db } from './firebase-config.js';
+    import { getAuth, onAuthStateChanged, signOut } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js';
+    import { doc, getDoc, setDoc } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';
+
+    const auth = getAuth(app);
+    const overlay = document.querySelector('.loading-overlay');
+
+    // Safety timeout — if Firebase never fires onAuthStateChanged, unblock after 5s
+    const safetyTimer = setTimeout(() => {
+      if (overlay.classList.contains('active')) {
+        overlay.classList.remove('active');
+        document.getElementById('notLoggedIn').style.display = 'block';
+      }
+    }, 5000);
+
+    // Auth nav link
+    onAuthStateChanged(auth, async (user) => {
+      clearTimeout(safetyTimer);
+      const link = document.getElementById('authNavLink');
+      const notLoggedIn = document.getElementById('notLoggedIn');
+      const profileForm = document.getElementById('profileForm');
+
+      if (user) {
+        link.textContent = '👤 ' + user.email.split('@')[0];
+        link.href = 'profile.html';
+        document.getElementById('userEmail').textContent = user.email;
+        notLoggedIn.style.display = 'none';
+        profileForm.style.display = 'block';
+
+        // Load saved profile
+        try {
+          const snap = await getDoc(doc(db, 'users', user.uid, 'profile', 'car'));
+          if (snap.exists()) {
+            const d = snap.data();
+            if (d.carName) document.getElementById('profileCarName').value = d.carName;
+            if (d.batteryCapacity) document.getElementById('profileBattery').value = d.batteryCapacity;
+            if (d.realRange) document.getElementById('profileRange').value = d.realRange;
+            updateConsumption();
+          }
+        } catch (e) {
+          // Silent fail — first time user
+        }
+      } else {
+        link.textContent = '🔑 Вход';
+        link.href = 'auth.html';
+        notLoggedIn.style.display = 'block';
+        profileForm.style.display = 'none';
+      }
+
+      overlay.classList.remove('active');
+    });
+
+    // Logout
+    document.getElementById('logoutBtn').addEventListener('click', async () => {
+      await signOut(auth);
+      window.location.href = 'auth.html';
+    });
+
+    // Live consumption calc
+    function updateConsumption() {
+      const battery = parseFloat(document.getElementById('profileBattery').value) || 0;
+      const range = parseFloat(document.getElementById('profileRange').value) || 1;
+      document.getElementById('profileConsumption').textContent = (battery / range * 100).toFixed(1) + ' kWh/100км';
+    }
+
+    document.getElementById('profileBattery').addEventListener('input', updateConsumption);
+    document.getElementById('profileRange').addEventListener('input', updateConsumption);
+    updateConsumption();
+
+    // Save profile
+    window.saveProfile = async function() {
+      const user = auth.currentUser;
+      if (!user) return;
+
+      const carName = document.getElementById('profileCarName').value.trim();
+      const batteryCapacity = parseFloat(document.getElementById('profileBattery').value);
+      const realRange = parseFloat(document.getElementById('profileRange').value);
+      const msg = document.getElementById('profileMsg');
+
+      if (!batteryCapacity || !realRange) {
+        msg.style.display = 'block';
+        msg.style.background = 'rgba(239,68,68,0.1)';
+        msg.style.color = 'var(--danger)';
+        msg.textContent = '⚠️ Моля, попълнете капацитета и обхвата.';
+        return;
+      }
+
+      const btn = document.getElementById('saveBtn');
+      btn.disabled = true;
+      btn.textContent = 'Запазване…';
+
+      try {
+        await setDoc(doc(db, 'users', user.uid, 'profile', 'car'), {
+          carName: carName || 'Моят EV',
+          batteryCapacity,
+          realRange,
+          updatedAt: new Date().toISOString(),
+        });
+        msg.style.display = 'block';
+        msg.style.background = 'rgba(16,185,129,0.1)';
+        msg.style.color = 'var(--accent3)';
+        msg.textContent = '✅ Профилът е запазен успешно!';
+      } catch (e) {
+        msg.style.display = 'block';
+        msg.style.background = 'rgba(239,68,68,0.1)';
+        msg.style.color = 'var(--danger)';
+        msg.textContent = '❌ Грешка при запазване. Опитайте отново.';
+      }
+
+      btn.disabled = false;
+      btn.textContent = '💾 Запази профила';
+    };
+  </script>
+
+  <script>
+    // Show loading on init until auth state resolves
+    document.querySelector('.loading-overlay').classList.add('active');
+  </script>
+</body>
+</html> 
