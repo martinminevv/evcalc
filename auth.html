@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EVCalc - Sign in</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .auth-tabs {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 1.75rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 0.35rem;
+    }
+
+    .auth-tab {
+      flex: 1;
+      padding: 0.65rem;
+      background: none;
+      border: none;
+      border-radius: 9px;
+      color: var(--muted);
+      font-family: var(--sans);
+      font-size: 0.88rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+      letter-spacing: 0.02em;
+    }
+
+    .auth-tab.active {
+      background: var(--card);
+      color: var(--accent);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    }
+
+    .auth-tab:not(.active):hover { color: var(--text); }
+
+    .auth-panel { display: none; }
+    .auth-panel.active { display: block; }
+
+    .auth-btn {
+      width: 100%;
+      padding: 0.9rem;
+      background: linear-gradient(135deg, var(--accent), #0099cc);
+      color: #000;
+      font-family: var(--sans);
+      font-size: 1rem;
+      font-weight: 800;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      letter-spacing: 0.02em;
+      transition: all 0.2s;
+      margin-top: 0.5rem;
+    }
+
+    .auth-btn:hover { opacity: 0.88; transform: translateY(-1px); }
+    .auth-btn:active { transform: translateY(0); }
+    .auth-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+    .auth-error {
+      display: none;
+      padding: 0.75rem 1rem;
+      background: rgba(239,68,68,0.1);
+      border: 1px solid rgba(239,68,68,0.25);
+      border-radius: 10px;
+      color: var(--danger);
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-top: 1rem;
+    }
+
+    .auth-success {
+      display: none;
+      padding: 0.75rem 1rem;
+      background: rgba(16,185,129,0.1);
+      border: 1px solid rgba(16,185,129,0.25);
+      border-radius: 10px;
+      color: var(--accent3);
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-top: 1rem;
+    }
+
+    .divider {
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.8rem;
+      margin: 1.25rem 0;
+      position: relative;
+    }
+
+    .divider::before, .divider::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      width: 38%;
+      height: 1px;
+      background: var(--border);
+    }
+
+    .divider::before { left: 0; }
+    .divider::after { right: 0; }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <a href="home.html" class="logo" style="text-decoration:none;color:inherit">
+      <div class="logo-icon">⚡</div>
+      <span>EV<span>Calc</span></span>
+    </a>
+    <nav>
+      <a href="#calculator" class="active">Калкулатор</a>
+      <a href="#results">Резултати</a>
+      <a href="profile.html">👤 Профил</a>
+      <a href="auth.html" id="authNavLink">🔑 Вход</a>
+    </nav>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero" style="padding:3rem 2rem 2rem">
+    <div class="hero-badge">🔐 Сигурен достъп</div>
+    <h1 style="font-size:clamp(1.8rem,4vw,2.8rem)">Влезте в<br><em>профила си</em></h1>
+    <p>Запазвайте параметрите на вашия автомобил и ги зареждайте автоматично при всяко изчисление.</p>
+  </section>
+
+  <main style="max-width:480px;margin:0 auto;padding:0 1.5rem 5rem;position:relative;z-index:1">
+
+    <div class="card">
+
+      <!-- TABS -->
+      <div class="auth-tabs">
+        <button class="auth-tab active" onclick="switchTab('login')">🔑 Вход</button>
+        <button class="auth-tab" onclick="switchTab('register')">📝 Регистрация</button>
+      </div>
+
+      <!-- LOGIN PANEL -->
+      <div class="auth-panel active" id="loginPanel">
+        <div class="field">
+          <label for="loginEmail">📧 Имейл адрес</label>
+          <input type="email" id="loginEmail" placeholder="вашият@имейл.com" autocomplete="email" />
+        </div>
+
+        <div class="field">
+          <label for="loginPassword">🔒 Парола</label>
+          <input type="password" id="loginPassword" placeholder="въведете паролата си" autocomplete="current-password" />
+        </div>
+
+        <div class="auth-error" id="loginError"></div>
+        <div class="auth-success" id="loginSuccess"></div>
+
+        <button class="auth-btn" id="loginBtn" onclick="doLogin()">
+          🔑 Влез в профила
+        </button>
+
+        <div class="divider">или</div>
+
+        <div style="text-align:center;font-size:0.85rem;color:var(--muted)">
+          Нямате акаунт?
+          <span onclick="switchTab('register')"
+            style="color:var(--accent);cursor:pointer;font-weight:700;text-decoration:underline">
+            Регистрирайте се
+          </span>
+        </div>
+      </div>
+
+      <!-- REGISTER PANEL -->
+      <div class="auth-panel" id="registerPanel">
+        <div class="field">
+          <label for="regEmail">📧 Имейл адрес</label>
+          <input type="email" id="regEmail" placeholder="вашият@имейл.com" autocomplete="email" />
+        </div>
+
+        <div class="field">
+          <label for="regPassword">🔒 Парола</label>
+          <input type="password" id="regPassword" placeholder="минимум 6 символа" autocomplete="new-password" />
+        </div>
+
+        <div class="field">
+          <label for="regPasswordConfirm">🔒 Потвърди паролата</label>
+          <input type="password" id="regPasswordConfirm" placeholder="повторете паролата" autocomplete="new-password" />
+        </div>
+
+        <div class="auth-error" id="registerError"></div>
+        <div class="auth-success" id="registerSuccess"></div>
+
+        <button class="auth-btn" id="registerBtn" onclick="doRegister()">
+          📝 Създай акаунт
+        </button>
+
+        <div class="divider">или</div>
+
+        <div style="text-align:center;font-size:0.85rem;color:var(--muted)">
+          Вече имате акаунт?
+          <span onclick="switchTab('login')"
+            style="color:var(--accent);cursor:pointer;font-weight:700;text-decoration:underline">
+            Влезте тук
+          </span>
+        </div>
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <span>ЕВКалк</span> — Калкулатор за разход на електромобил &nbsp;·&nbsp;
+    Made with ⚡ in Bulgaria
+  </footer>
+
+  <script>
+    function switchTab(tab) {
+      document.querySelectorAll('.auth-tab').forEach((t, i) => {
+        t.classList.toggle('active', (i === 0) === (tab === 'login'));
+      });
+      document.getElementById('loginPanel').classList.toggle('active', tab === 'login');
+      document.getElementById('registerPanel').classList.toggle('active', tab === 'register');
+    }
+
+    function showError(id, msg) {
+      const el = document.getElementById(id);
+      el.textContent = msg;
+      el.style.display = 'block';
+      document.getElementById(id.replace('Error', 'Success')).style.display = 'none';
+    }
+
+    function showSuccess(id, msg) {
+      const el = document.getElementById(id);
+      el.textContent = msg;
+      el.style.display = 'block';
+      document.getElementById(id.replace('Success', 'Error')).style.display = 'none';
+    }
+
+    function clearMessages() {
+      ['loginError','loginSuccess','registerError','registerSuccess'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.style.display = 'none';
+      });
+    }
+  </script>
+
+  <script type="module">
+    import { app } from './firebase-config.js';
+    import {
+      getAuth, onAuthStateChanged,
+      signInWithEmailAndPassword,
+      createUserWithEmailAndPassword
+    } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js';
+
+    const auth = getAuth(app);
+
+    // If already logged in, redirect to home
+    onAuthStateChanged(auth, (user) => {
+      if (user) window.location.href = 'home.html';
+    });
+
+    // Friendly Firebase error messages — covers Firebase 10.x codes
+    function friendlyError(code) {
+      const map = {
+        'auth/invalid-email':            'Невалиден имейл адрес.',
+        'auth/missing-email':            'Моля, въведете имейл адрес.',
+        'auth/missing-password':         'Моля, въведете парола.',
+        'auth/user-not-found':           'Не съществува акаунт с този имейл.',
+        'auth/wrong-password':           'Грешна парола. Опитайте отново.',
+        'auth/invalid-credential':       'Грешен имейл или парола.',
+        'auth/email-already-in-use':     'Вече съществува акаунт с този имейл.',
+        'auth/weak-password':            'Паролата трябва да е поне 6 символа.',
+        'auth/too-many-requests':        'Твърде много опити. Изчакайте малко.',
+        'auth/network-request-failed':   'Проблем с мрежата. Проверете интернет връзката.',
+        'auth/operation-not-allowed':    'Регистрацията с имейл не е активирана. Свържете се с администратора.',
+        'auth/user-disabled':            'Този акаунт е деактивиран.',
+      };
+      return map[code] || 'Възникна грешка: ' + (code || 'неизвестна') + '. Опитайте отново.';
+    }
+
+    window.doLogin = async function() {
+      clearMessages();
+      const email = document.getElementById('loginEmail').value.trim();
+      const password = document.getElementById('loginPassword').value;
+      const btn = document.getElementById('loginBtn');
+
+      if (!email || !password) {
+        showError('loginError', '⚠️ Попълнете имейл и парола.');
+        return;
+      }
+
+      btn.disabled = true;
+      btn.textContent = 'Влизане…';
+
+      try {
+        await signInWithEmailAndPassword(auth, email, password);
+        showSuccess('loginSuccess', '✅ Успешен вход! Пренасочване…');
+        setTimeout(() => window.location.href = 'home.html', 800);
+      } catch (e) {
+        showError('loginError', '❌ ' + friendlyError(e.code));
+        btn.disabled = false;
+        btn.textContent = '🔑 Влез в профила';
+      }
+    };
+
+    window.doRegister = async function() {
+      clearMessages();
+      const email = document.getElementById('regEmail').value.trim();
+      const password = document.getElementById('regPassword').value;
+      const confirm = document.getElementById('regPasswordConfirm').value;
+      const btn = document.getElementById('registerBtn');
+
+      if (!email || !password || !confirm) {
+        showError('registerError', '⚠️ Попълнете всички полета.');
+        return;
+      }
+
+      if (password !== confirm) {
+        showError('registerError', '❌ Паролите не съвпадат.');
+        return;
+      }
+
+      if (password.length < 6) {
+        showError('registerError', '❌ Паролата трябва да е поне 6 символа.');
+        return;
+      }
+
+      btn.disabled = true;
+      btn.textContent = 'Регистриране…';
+
+      try {
+        await createUserWithEmailAndPassword(auth, email, password);
+        showSuccess('registerSuccess', '✅ Акаунтът е създаден! Пренасочване…');
+        setTimeout(() => window.location.href = 'profile.html', 800);
+      } catch (e) {
+        showError('registerError', '❌ ' + friendlyError(e.code));
+        btn.disabled = false;
+        btn.textContent = '📝 Създай акаунт';
+      }
+    };
+
+    // Allow Enter key to submit
+    document.getElementById('loginPassword').addEventListener('keydown', e => {
+      if (e.key === 'Enter') window.doLogin();
+    });
+    document.getElementById('regPasswordConfirm').addEventListener('keydown', e => {
+      if (e.key === 'Enter') window.doRegister();
+    });
+  </script>
+
+</body>
+</html>
