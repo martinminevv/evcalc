@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>EVCalc - Profile</title>
+  <title>EVCalc - Профил</title>
   <link rel="stylesheet" href="style.css" />
   <link rel="icon" href="/images/icon.ico" type="image/x-icon" />
   <script type="text/javascript">
@@ -29,24 +29,33 @@
       <span>EV<span>Calc</span></span>
     </a>
     <nav>
-      <a href="#calculator" class="active">Калкулатор</a>
-      <a href="#results">Резултати</a>
-      <a href="profile.html">👤 Профил</a>
+      <a href="home.html">Калкулатор</a>
       <a href="auth.html" id="authNavLink">🔑 Вход</a>
+      <a href="profile.html" id="profileNavLink" class="active" style="display:none">👤 Профил</a>
+      <a href="#" id="logoutNavBtn" style="display:none">🚪 Изход</a>
     </nav>
+    <button class="hamburger" id="hamburgerBtn" aria-label="Меню">☰</button>
   </header>
+
+  <!-- MOBILE NAV -->
+  <div class="mobile-nav" id="mobileNav">
+    <a href="home.html">Калкулатор</a>
+    <a href="auth.html" id="mobileAuthLink">🔑 Вход</a>
+    <a href="profile.html" id="mobileProfileLink" class="active" style="display:none">👤 Профил</a>
+    <a href="#" id="mobileLogoutBtn" style="display:none">🚪 Изход</a>
+  </div>
 
   <!-- HERO -->
   <section class="hero" style="padding:3rem 2rem 2rem">
     <div class="hero-badge">👤 Личен профил</div>
-    <h1 style="font-size:clamp(1.8rem,4vw,2.8rem)">Моят <em>автомобил</em></h1>
-    <p>Запазете параметрите на вашия електромобил и те ще се зареждат автоматично при всяко изчисление.</p>
+    <h1 style="font-size:clamp(1.8rem,4vw,2.8rem)">Моите <em>автомобили</em></h1>
+    <p>Запазете параметрите на вашия електромобил — ще се зареждат автоматично при всяко изчисление.</p>
   </section>
 
-  <main style="max-width:600px;margin:0 auto;padding:0 1.5rem 5rem;position:relative;z-index:1">
+  <main style="max-width:660px;margin:0 auto;padding:0 1.5rem 5rem;position:relative;z-index:1">
 
-    <!-- NOT LOGGED IN NOTICE -->
-    <div id="notLoggedIn" style="display:none" class="card" style="margin-bottom:1.5rem">
+    <!-- NOT LOGGED IN -->
+    <div id="notLoggedIn" style="display:none" class="card">
       <div style="text-align:center;padding:1rem 0">
         <div style="font-size:2rem;margin-bottom:0.75rem">🔒</div>
         <div style="font-size:1rem;font-weight:700;margin-bottom:0.5rem">Нужен е акаунт</div>
@@ -55,21 +64,19 @@
         </div>
         <a href="auth.html"
           style="display:inline-block;padding:0.65rem 1.5rem;background:linear-gradient(135deg,var(--accent),#0099cc);
-                 color:#000;font-weight:800;font-size:0.9rem;border-radius:10px;text-decoration:none;transition:opacity 0.2s"
-          onmouseover="this.style.opacity='0.85'" onmouseout="this.style.opacity='1'">
+                 color:#000;font-weight:800;font-size:0.9rem;border-radius:10px;text-decoration:none">
           🔑 Влез / Регистрирай се
         </a>
       </div>
     </div>
 
-    <!-- PROFILE FORM -->
+    <!-- PROFILE AREA -->
     <div id="profileForm" style="display:none">
 
-      <!-- User info bar -->
-      <div id="userBar"
-        style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem;
-               padding:0.75rem 1rem;background:var(--surface);border:1px solid var(--border);
-               border-radius:12px;font-size:0.82rem">
+      <!-- User bar -->
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem;
+                  padding:0.75rem 1rem;background:var(--surface);border:1px solid var(--border);
+                  border-radius:12px;font-size:0.82rem">
         <div>
           <span style="color:var(--muted)">Влезли като </span>
           <span id="userEmail" style="color:var(--accent);font-weight:700;font-family:var(--mono)"></span>
@@ -83,120 +90,382 @@
         </button>
       </div>
 
-      <div class="card">
-        <div class="card-header">
-          <div class="card-icon purple">🚗</div>
-          <h2>Моят автомобил<small>Параметри за изчисление на разход</small></h2>
-        </div>
-
-        <div class="field">
-          <label for="profileCarName">🚗 Наименование на автомобила</label>
-          <input type="text" id="profileCarName" placeholder="напр. Tesla Model 3, VW ID.4…" />
-        </div>
-
-        <div class="field-row">
-          <div class="field" style="margin-bottom:0">
-            <label for="profileBattery">🔋 Капацитет на батерията (kWh)</label>
-            <input type="number" id="profileBattery" min="10" max="200" step="0.5" value="75"
-              placeholder="напр. 75" />
-          </div>
-          <div class="field" style="margin-bottom:0">
-            <label for="profileRange">📏 Реален обхват (км)</label>
-            <input type="number" id="profileRange" min="50" max="1000" step="1" value="400"
-              placeholder="напр. 400" />
-          </div>
-        </div>
-
-        <div style="margin-top:1.25rem;padding:0.9rem 1rem;background:var(--surface);border-radius:10px;
-                    border:1px solid var(--border);display:flex;align-items:center;justify-content:space-between">
-          <div>
-            <div style="font-size:0.72rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.07em;font-weight:700;margin-bottom:0.2rem">
-              ⚡ Изчислен разход
-            </div>
-            <div style="font-size:0.75rem;color:var(--muted)">Батерия ÷ Обхват × 100</div>
-          </div>
-          <div id="profileConsumption"
-            style="font-family:var(--mono);font-size:1.2rem;font-weight:700;color:var(--accent)">
-            —
-          </div>
-        </div>
-
-        <!-- Error / success message -->
-        <div id="profileMsg" style="display:none;margin-top:1rem;padding:0.75rem 1rem;border-radius:10px;
-             font-size:0.85rem;font-weight:600;text-align:center"></div>
-
-        <button id="saveBtn" onclick="saveProfile()"
-          style="width:100%;margin-top:1.25rem;padding:0.9rem;background:linear-gradient(135deg,var(--accent),#0099cc);
-                 color:#000;font-family:var(--sans);font-size:1rem;font-weight:800;border:none;border-radius:12px;
-                 cursor:pointer;letter-spacing:0.02em;transition:all 0.2s"
-          onmouseover="this.style.opacity='0.88'" onmouseout="this.style.opacity='1'">
-          💾 Запази профила
-        </button>
-
-        <div style="text-align:center;margin-top:1rem">
-          <a href="home.html"
-            style="font-size:0.85rem;color:var(--muted);text-decoration:none;transition:color 0.2s"
-            onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--muted)'">
-            🔙 Към калкулатора
-          </a>
-        </div>
+      <!-- TABS -->
+      <div class="profile-tabs">
+        <button class="profile-tab active" onclick="switchProfileTab('cars')">🚗 Мои автомобили</button>
+        <button class="profile-tab"        onclick="switchProfileTab('trips')">🗺 Моите трипове</button>
       </div>
-    </div>
+
+      <!-- ===== CARS TAB ===== -->
+      <div class="profile-panel active" id="tabCars">
+
+        <!-- Add / edit car card -->
+        <div class="card" style="margin-bottom:1.5rem">
+          <div class="card-header">
+            <div class="card-icon purple">🚗</div>
+            <h2 id="carFormTitle">Добави автомобил<small>Изберете от базата или въведете ръчно</small></h2>
+          </div>
+
+          <!-- Hidden: which car we're editing (empty = new) -->
+          <input type="hidden" id="editingCarId" value="" />
+
+          <!-- EV SEARCH -->
+          <div class="field">
+            <label>🔍 Търси автомобил…</label>
+            <div class="ev-search-wrap">
+              <input type="text" id="profileEvSearch" placeholder="напр. Tesla Model 3, VW ID.4…" autocomplete="off" />
+              <button class="ev-search-clear" id="profileEvClear" type="button">✕</button>
+              <div class="ev-dropdown" id="profileEvDropdown"></div>
+            </div>
+          </div>
+
+          <!-- Name -->
+          <div class="field">
+            <label for="profileCarName">🚗 Наименование</label>
+            <input type="text" id="profileCarName" placeholder="напр. Tesla Model 3, VW ID.4…" />
+          </div>
+
+          <!-- Battery + Range -->
+          <div class="field-row">
+            <div class="field" style="margin-bottom:0">
+              <label for="profileBattery">🔋 Батерия (kWh)</label>
+              <input type="number" id="profileBattery" min="10" max="200" step="0.5" value="75" placeholder="напр. 75" />
+            </div>
+            <div class="field" style="margin-bottom:0">
+              <label for="profileRange">📏 WLTP обхват (км)</label>
+              <input type="number" id="profileRange" min="50" max="1000" step="1" value="400" placeholder="напр. 400" />
+            </div>
+          </div>
+
+          <!-- Max charge speed -->
+          <div class="field" style="margin-top:1rem">
+            <label for="profileMaxCharge">⚡ Макс. зареждане (kW)</label>
+            <input type="number" id="profileMaxCharge" min="3" max="350" step="1" value="150" placeholder="напр. 150" />
+          </div>
+
+          <!-- Computed consumption -->
+          <div style="margin-top:0.5rem;padding:0.9rem 1rem;background:var(--surface);border-radius:10px;
+                      border:1px solid var(--border);display:flex;align-items:center;justify-content:space-between">
+            <div>
+              <div style="font-size:0.72rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.07em;font-weight:700;margin-bottom:0.2rem">⚡ Изчислен разход</div>
+              <div style="font-size:0.75rem;color:var(--muted)">Батерия ÷ Обхват × 100</div>
+            </div>
+            <div id="profileConsumption" style="font-family:var(--mono);font-size:1.2rem;font-weight:700;color:var(--accent)">—</div>
+          </div>
+
+          <!-- Set as default checkbox -->
+          <div style="display:flex;align-items:center;gap:0.6rem;margin-top:1rem">
+            <input type="checkbox" id="setAsDefault"
+              style="width:18px;height:18px;cursor:pointer;accent-color:var(--accent);flex-shrink:0;border-radius:4px" />
+            <label for="setAsDefault" style="margin:0;text-transform:none;font-size:0.85rem;letter-spacing:0;color:var(--text);cursor:pointer;font-weight:600">
+              ⭐ Задай като автомобил по подразбиране
+            </label>
+          </div>
+
+          <!-- Message -->
+          <div id="profileMsg" style="display:none;margin-top:1rem;padding:0.75rem 1rem;border-radius:10px;font-size:0.85rem;font-weight:600;text-align:center"></div>
+
+          <!-- Buttons -->
+          <div style="display:flex;gap:0.75rem;margin-top:1.25rem">
+            <button id="saveCarBtn" onclick="saveCar()"
+              style="flex:1;padding:0.9rem;background:linear-gradient(135deg,var(--accent),#0099cc);
+                     color:#000;font-family:var(--sans);font-size:1rem;font-weight:800;border:none;
+                     border-radius:12px;cursor:pointer;letter-spacing:0.02em;transition:all 0.2s">
+              💾 Запази автомобила
+            </button>
+            <button id="cancelEditBtn" onclick="cancelEdit()" style="display:none;padding:0.9rem 1.25rem;
+              background:none;border:1px solid var(--border);color:var(--muted);font-family:var(--sans);
+              font-size:0.9rem;font-weight:700;border-radius:12px;cursor:pointer;transition:all 0.2s">
+              ✕ Откажи
+            </button>
+          </div>
+
+          <div style="text-align:center;margin-top:1rem">
+            <a href="home.html" style="font-size:0.85rem;color:var(--muted);text-decoration:none;transition:color 0.2s"
+              onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--muted)'">
+              🔙 Към калкулатора
+            </a>
+          </div>
+        </div>
+
+        <!-- My cars list -->
+        <div class="card">
+          <div class="card-header">
+            <div class="card-icon cyan">🚗</div>
+            <h2>Мои автомобили<small>Управлявайте запазените автомобили</small></h2>
+          </div>
+          <div id="carsList">
+            <div style="text-align:center;padding:2rem;color:var(--muted);font-size:0.85rem">
+              Зареждане…
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /tabCars -->
+
+      <!-- ===== TRIPS TAB ===== -->
+      <div class="profile-panel" id="tabTrips">
+        <div class="card">
+          <div class="card-header">
+            <div class="card-icon amber">🗺</div>
+            <h2>Моите трипове<small>История на изчислените маршрути</small></h2>
+          </div>
+          <div id="tripsList">
+            <div style="text-align:center;padding:2rem;color:var(--muted);font-size:0.85rem">
+              Зареждане…
+            </div>
+          </div>
+        </div>
+      </div><!-- /tabTrips -->
+
+    </div><!-- /profileForm -->
 
   </main>
 
   <!-- FOOTER -->
   <footer>
-    <span>ЕВКалк</span> — Калкулатор за разход на електромобил &nbsp;·&nbsp;
-    Made with ⚡ in Bulgaria
+    <span>ЕВКалк</span> — Калкулатор за разход на електромобил &nbsp;·&nbsp; Made with ⚡ in Bulgaria
   </footer>
 
+  <!-- ===== EV DATABASE (single source of truth mirrored from script.js) ===== -->
+  <script>
+  const EV_DATABASE = [
+    { name: 'Tesla Model 3 SR+',         battery: 60,    range: 415, maxCharge: 170 },
+    { name: 'Tesla Model 3 Long Range',   battery: 82,    range: 560, maxCharge: 250 },
+    { name: 'Tesla Model Y LR',           battery: 82,    range: 533, maxCharge: 250 },
+    { name: 'Tesla Model S Plaid',        battery: 100,   range: 600, maxCharge: 250 },
+    { name: 'VW ID.3 Pro',               battery: 58,    range: 425, maxCharge: 100 },
+    { name: 'VW ID.3 Pro S',             battery: 77,    range: 549, maxCharge: 135 },
+    { name: 'VW ID.4 Pro',               battery: 77,    range: 521, maxCharge: 135 },
+    { name: 'BMW iX3',                   battery: 80,    range: 458, maxCharge: 150 },
+    { name: 'BMW i4 M50',                battery: 83.9,  range: 510, maxCharge: 205 },
+    { name: 'Hyundai IONIQ 5 LR RWD',   battery: 77.4,  range: 507, maxCharge: 233 },
+    { name: 'Hyundai IONIQ 6 LR RWD',   battery: 77.4,  range: 614, maxCharge: 233 },
+    { name: 'Kia EV6 LR RWD',           battery: 77.4,  range: 528, maxCharge: 233 },
+    { name: 'Kia EV6 GT',               battery: 77.4,  range: 424, maxCharge: 233 },
+    { name: 'Mercedes EQS 450+',         battery: 107.8, range: 770, maxCharge: 200 },
+    { name: 'Mercedes EQA 250',          battery: 66.5,  range: 426, maxCharge: 100 },
+    { name: 'Audi Q4 e-tron 40',         battery: 82,    range: 520, maxCharge: 135 },
+    { name: 'Peugeot e-208',             battery: 50,    range: 362, maxCharge: 100 },
+    { name: 'Renault Megane E-Tech',      battery: 60,    range: 450, maxCharge: 130 },
+    { name: 'Renault Zoe',               battery: 52,    range: 395, maxCharge: 50  },
+    { name: 'Nissan Leaf e+',            battery: 62,    range: 385, maxCharge: 100 },
+    { name: 'Skoda Enyaq 80',            battery: 82,    range: 534, maxCharge: 135 },
+    { name: 'CUPRA Born 58',             battery: 58,    range: 424, maxCharge: 100 },
+    { name: 'Fiat 500e',                 battery: 42,    range: 320, maxCharge: 85  },
+    { name: 'Volvo C40 Recharge',        battery: 78,    range: 476, maxCharge: 150 },
+    { name: 'Polestar 2 LR',             battery: 82,    range: 551, maxCharge: 205 },
+    { name: 'Opel Mokka-e',              battery: 50,    range: 324, maxCharge: 100 },
+    { name: 'MG4 Standard',              battery: 51,    range: 350, maxCharge: 117 },
+    { name: 'BYD Atto 3',               battery: 60.5,  range: 420, maxCharge: 80  },
+    { name: 'Dacia Spring',              battery: 26.8,  range: 220, maxCharge: 30  },
+    { name: 'Toyota bZ4X AWD',           battery: 72.8,  range: 411, maxCharge: 150 },
+  ];
+
+  // ===== HAMBURGER =====
+  document.addEventListener('DOMContentLoaded', () => {
+    const btn = document.getElementById('hamburgerBtn');
+    const nav = document.getElementById('mobileNav');
+    if (btn && nav) {
+      btn.addEventListener('click', () => {
+        const open = nav.classList.toggle('open');
+        btn.textContent = open ? '✕' : '☰';
+      });
+      nav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+        nav.classList.remove('open');
+        btn.textContent = '☰';
+      }));
+    }
+  });
+
+  // ===== PROFILE TABS =====
+  function switchProfileTab(tab) {
+    document.querySelectorAll('.profile-tab').forEach((t, i) => {
+      t.classList.toggle('active', (i === 0) === (tab === 'cars'));
+    });
+    document.getElementById('tabCars').classList.toggle('active', tab === 'cars');
+    document.getElementById('tabTrips').classList.toggle('active', tab === 'trips');
+  }
+
+  // ===== EV SEARCH =====
+  function setupProfileEVSearch() {
+    const input    = document.getElementById('profileEvSearch');
+    const dropdown = document.getElementById('profileEvDropdown');
+    const clearBtn = document.getElementById('profileEvClear');
+    if (!input || !dropdown) return;
+
+    let focusedIndex = -1;
+
+    input.addEventListener('input', () => {
+      const q = input.value.toLowerCase().trim();
+      clearBtn && clearBtn.classList.toggle('visible', q.length > 0);
+      if (!q) { dropdown.classList.remove('open'); return; }
+
+      const matches = EV_DATABASE.filter(ev => ev.name.toLowerCase().includes(q));
+      if (!matches.length) { dropdown.classList.remove('open'); return; }
+
+      focusedIndex = -1;
+      dropdown.innerHTML = matches.map((ev, i) => {
+        const base = (ev.battery / ev.range * 100).toFixed(1);
+        return `<div class="ev-dropdown-item" data-idx="${i}"
+          data-name="${ev.name}" data-battery="${ev.battery}"
+          data-range="${ev.range}" data-maxcharge="${ev.maxCharge}">
+          <div class="ev-item-name">${ev.name}</div>
+          <div class="ev-item-specs">${ev.battery} kWh · ${ev.range} км WLTP · ${ev.maxCharge} kW · ${base} kWh/100км</div>
+        </div>`;
+      }).join('');
+
+      dropdown.classList.add('open');
+
+      dropdown.querySelectorAll('.ev-dropdown-item').forEach(item => {
+        item.addEventListener('mousedown', e => { e.preventDefault(); selectProfileEV(item); });
+      });
+    });
+
+    input.addEventListener('keydown', e => {
+      const items = dropdown.querySelectorAll('.ev-dropdown-item');
+      if (!items.length || !dropdown.classList.contains('open')) return;
+      if (e.key === 'ArrowDown') { e.preventDefault(); focusedIndex = Math.min(focusedIndex + 1, items.length - 1); highlightProfileItem(items); }
+      else if (e.key === 'ArrowUp') { e.preventDefault(); focusedIndex = Math.max(focusedIndex - 1, 0); highlightProfileItem(items); }
+      else if (e.key === 'Enter' && focusedIndex >= 0) { e.preventDefault(); selectProfileEV(items[focusedIndex]); }
+      else if (e.key === 'Escape') { dropdown.classList.remove('open'); }
+    });
+
+    function highlightProfileItem(items) {
+      items.forEach((it, i) => it.classList.toggle('focused', i === focusedIndex));
+      if (focusedIndex >= 0) items[focusedIndex].scrollIntoView({ block: 'nearest' });
+    }
+
+    document.addEventListener('click', e => {
+      if (!input.contains(e.target) && !dropdown.contains(e.target)) dropdown.classList.remove('open');
+    });
+
+    clearBtn && clearBtn.addEventListener('click', () => {
+      input.value = '';
+      clearBtn.classList.remove('visible');
+      dropdown.classList.remove('open');
+    });
+  }
+
+  function selectProfileEV(item) {
+    const battery   = parseFloat(item.dataset.battery);
+    const range     = parseFloat(item.dataset.range);
+    const maxCharge = parseFloat(item.dataset.maxcharge);
+    const name      = item.dataset.name;
+
+    document.getElementById('profileCarName').value    = name;
+    document.getElementById('profileBattery').value    = battery;
+    document.getElementById('profileRange').value      = range;
+    document.getElementById('profileMaxCharge').value  = maxCharge;
+    document.getElementById('profileEvSearch').value   = name;
+    document.getElementById('profileEvDropdown').classList.remove('open');
+    document.getElementById('profileEvClear').classList.add('visible');
+    updateProfileConsumption();
+  }
+
+  function updateProfileConsumption() {
+    const battery = parseFloat(document.getElementById('profileBattery').value) || 0;
+    const range   = parseFloat(document.getElementById('profileRange').value) || 1;
+    document.getElementById('profileConsumption').textContent =
+      (battery / range * 100).toFixed(1) + ' kWh/100км';
+  }
+
+  function cancelEdit() {
+    document.getElementById('editingCarId').value = '';
+    document.getElementById('profileCarName').value = '';
+    document.getElementById('profileBattery').value = 75;
+    document.getElementById('profileRange').value = 400;
+    document.getElementById('profileMaxCharge').value = 150;
+    document.getElementById('profileEvSearch').value = '';
+    document.getElementById('profileEvClear').classList.remove('visible');
+    document.getElementById('setAsDefault').checked = false;
+    document.getElementById('carFormTitle').innerHTML = 'Добави автомобил<small>Изберете от базата или въведете ръчно</small>';
+    document.getElementById('saveCarBtn').textContent = '💾 Запази автомобила';
+    document.getElementById('cancelEditBtn').style.display = 'none';
+    document.getElementById('profileMsg').style.display = 'none';
+    updateProfileConsumption();
+  }
+
+  function showProfileMsg(text, ok) {
+    const msg = document.getElementById('profileMsg');
+    msg.style.display = 'block';
+    msg.style.background = ok ? 'rgba(16,185,129,0.1)' : 'rgba(239,68,68,0.1)';
+    msg.style.color = ok ? 'var(--accent3)' : 'var(--danger)';
+    msg.textContent = text;
+  }
+  </script>
+
+  <!-- ===== FIREBASE MODULE ===== -->
   <script type="module">
     import { app, db } from './firebase-config.js';
-    import { getAuth, onAuthStateChanged, signOut } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js';
-    import { doc, getDoc, setDoc } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';
+    import { getAuth, onAuthStateChanged, signOut }
+      from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js';
+    import {
+      collection, doc, getDoc, getDocs, setDoc, addDoc, deleteDoc,
+      updateDoc, serverTimestamp, query, orderBy
+    } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';
 
-    const auth = getAuth(app);
+    const auth    = document.auth = getAuth(app);
     const overlay = document.querySelector('.loading-overlay');
 
-    // Safety timeout — if Firebase never fires onAuthStateChanged, unblock after 5s
+    // Safety timeout
     const safetyTimer = setTimeout(() => {
-      if (overlay.classList.contains('active')) {
-        overlay.classList.remove('active');
-        document.getElementById('notLoggedIn').style.display = 'block';
-      }
-    }, 5000);
+      overlay.classList.remove('active');
+      document.getElementById('notLoggedIn').style.display = 'block';
+    }, 6000);
 
-    // Auth nav link
-    onAuthStateChanged(auth, async (user) => {
+    // ===== AUTH STATE =====
+    onAuthStateChanged(auth, async user => {
       clearTimeout(safetyTimer);
-      const link = document.getElementById('authNavLink');
-      const notLoggedIn = document.getElementById('notLoggedIn');
-      const profileForm = document.getElementById('profileForm');
+
+      const authLink        = document.getElementById('authNavLink');
+      const profileLink     = document.getElementById('profileNavLink');
+      const logoutBtn       = document.getElementById('logoutNavBtn');
+      const mobileAuthLink  = document.getElementById('mobileAuthLink');
+      const mobileProfileLink = document.getElementById('mobileProfileLink');
+      const mobileLogoutBtn = document.getElementById('mobileLogoutBtn');
+      const notLoggedIn     = document.getElementById('notLoggedIn');
+      const profileForm     = document.getElementById('profileForm');
 
       if (user) {
-        link.textContent = '👤 ' + user.email.split('@')[0];
-        link.href = 'profile.html';
+        if (authLink) authLink.style.display = 'none';
+        if (profileLink) {
+          profileLink.style.display = 'inline';
+          profileLink.textContent = '👤 ' + user.email.split('@')[0];
+        }
+        if (logoutBtn) logoutBtn.style.display = 'inline';
+        
         document.getElementById('userEmail').textContent = user.email;
+        if (mobileAuthLink)  mobileAuthLink.style.display  = 'none';
+        if (mobileProfileLink) {
+          mobileProfileLink.style.display = 'block';
+          mobileProfileLink.textContent = '👤 ' + user.email.split('@')[0];
+        }
+        if (mobileLogoutBtn) mobileLogoutBtn.style.display = 'block';
         notLoggedIn.style.display = 'none';
         profileForm.style.display = 'block';
 
-        // Load saved profile
-        try {
-          const snap = await getDoc(doc(db, 'users', user.uid, 'profile', 'car'));
-          if (snap.exists()) {
-            const d = snap.data();
-            if (d.carName) document.getElementById('profileCarName').value = d.carName;
-            if (d.batteryCapacity) document.getElementById('profileBattery').value = d.batteryCapacity;
-            if (d.realRange) document.getElementById('profileRange').value = d.realRange;
-            updateConsumption();
-          }
-        } catch (e) {
-          // Silent fail — first time user
-        }
+        // Setup EV search now that DOM is ready
+        setupProfileEVSearch();
+
+        // Wire live consumption update
+        document.getElementById('profileBattery').addEventListener('input', updateProfileConsumption);
+        document.getElementById('profileRange').addEventListener('input', updateProfileConsumption);
+        updateProfileConsumption();
+
+        // Load cars + try to migrate legacy profile
+        await ensureLegacyMigration(user);
+        await loadCars(user);
+        await loadTrips(user);
+
       } else {
-        link.textContent = '🔑 Вход';
-        link.href = 'auth.html';
+        if (authLink) authLink.style.display = 'inline';
+        if (profileLink) profileLink.style.display = 'none';
+        if (logoutBtn) logoutBtn.style.display = 'none';
+        
+        if (mobileAuthLink)  mobileAuthLink.style.display  = 'block';
+        if (mobileProfileLink) mobileProfileLink.style.display = 'none';
+        if (mobileLogoutBtn) mobileLogoutBtn.style.display = 'none';
         notLoggedIn.style.display = 'block';
         profileForm.style.display = 'none';
       }
@@ -204,71 +473,316 @@
       overlay.classList.remove('active');
     });
 
-    // Logout
-    document.getElementById('logoutBtn').addEventListener('click', async () => {
+    document.getElementById('logoutNavBtn')?.addEventListener('click', async (e) => {
+      e.preventDefault();
       await signOut(auth);
       window.location.href = 'auth.html';
     });
 
-    // Live consumption calc
-    function updateConsumption() {
-      const battery = parseFloat(document.getElementById('profileBattery').value) || 0;
-      const range = parseFloat(document.getElementById('profileRange').value) || 1;
-      document.getElementById('profileConsumption').textContent = (battery / range * 100).toFixed(1) + ' kWh/100км';
+    // ===== LOGOUT =====
+    document.getElementById('logoutBtn').addEventListener('click', async () => {
+      await signOut(auth);
+      window.location.href = 'auth.html';
+    });
+    document.getElementById('mobileLogoutBtn')?.addEventListener('click', async e => {
+      e.preventDefault();
+      await signOut(auth);
+      window.location.href = 'auth.html';
+    });
+
+    // ===== MIGRATE LEGACY SINGLE-CAR PROFILE =====
+    async function ensureLegacyMigration(user) {
+      try {
+        // Check if any cars already exist in new schema
+        const carsSnap = await getDocs(collection(db, 'users', user.uid, 'cars'));
+        if (!carsSnap.empty) return; // already migrated
+
+        // Try to read old single-car profile
+        const legacySnap = await getDoc(doc(db, 'users', user.uid, 'profile', 'car'));
+        if (!legacySnap.exists()) return;
+
+        const d = legacySnap.data();
+        if (!d.batteryCapacity || !d.realRange) return;
+
+        // Write as first car in new schema
+        const newCarRef = doc(collection(db, 'users', user.uid, 'cars'));
+        await setDoc(newCarRef, {
+          carName:         d.carName || 'Моят EV',
+          batteryCapacity: d.batteryCapacity,
+          realRange:       d.realRange,
+          maxChargePower:  d.maxChargePower || 150,
+          isDefault:       true,
+          createdAt:       serverTimestamp(),
+        });
+
+        // Save meta
+        await setDoc(doc(db, 'users', user.uid, 'profile', 'cars_meta'), {
+          defaultCarId: newCarRef.id,
+        });
+      } catch (e) {
+        // Silent — first-time user
+      }
     }
 
-    document.getElementById('profileBattery').addEventListener('input', updateConsumption);
-    document.getElementById('profileRange').addEventListener('input', updateConsumption);
-    updateConsumption();
+    // ===== LOAD CARS =====
+    async function loadCars(user) {
+      const container = document.getElementById('carsList');
+      try {
+        const metaSnap = await getDoc(doc(db, 'users', user.uid, 'profile', 'cars_meta'));
+        const defaultId = metaSnap.exists() ? metaSnap.data().defaultCarId : null;
 
-    // Save profile
-    window.saveProfile = async function() {
+        const snap = await getDocs(collection(db, 'users', user.uid, 'cars'));
+
+        if (snap.empty) {
+          container.innerHTML = `<div style="text-align:center;padding:2rem;color:var(--muted);font-size:0.85rem">
+            Нямате запазени автомобили. Добавете първия си автомобил по-горе.
+          </div>`;
+          return;
+        }
+
+        const cars = [];
+        snap.forEach(d => cars.push({ id: d.id, ...d.data() }));
+        // Sort: default first, then by name
+        cars.sort((a, b) => {
+          if (a.id === defaultId) return -1;
+          if (b.id === defaultId) return 1;
+          return (a.carName || '').localeCompare(b.carName || '');
+        });
+
+        container.innerHTML = cars.map(car => {
+          const isDefault = car.id === defaultId;
+          const base = ((car.batteryCapacity || 0) / (car.realRange || 1) * 100).toFixed(1);
+          return `
+          <div class="car-list-item ${isDefault ? 'default-car' : ''}" id="carItem-${car.id}">
+            <div class="car-info">
+              <div class="car-name">${isDefault ? '⭐ ' : ''}${car.carName || '—'}</div>
+              <div class="car-specs">${car.batteryCapacity} kWh · ${car.realRange} км · ${car.maxChargePower || '—'} kW · ${base} kWh/100км</div>
+            </div>
+            <div class="car-actions">
+              <button class="car-action-btn star ${isDefault ? 'active' : ''}"
+                title="${isDefault ? 'По подразбиране' : 'Задай по подразбиране'}"
+                onclick="window._setDefaultCar('${car.id}')">⭐</button>
+              <button class="car-action-btn" title="Редактирай"
+                onclick="window._editCar('${car.id}', ${JSON.stringify(car).replace(/'/g,"&#39;")})">✏️</button>
+              <button class="car-action-btn danger" title="Изтрий"
+                onclick="window._deleteCar('${car.id}')">🗑</button>
+            </div>
+          </div>`;
+        }).join('');
+
+      } catch (e) {
+        container.innerHTML = `<div style="color:var(--danger);font-size:0.85rem;padding:1rem">❌ Грешка при зареждане на автомобилите.</div>`;
+      }
+    }
+
+    // ===== LOAD TRIPS =====
+    async function loadTrips(user) {
+      const container = document.getElementById('tripsList');
+      try {
+        const q    = query(collection(db, 'users', user.uid, 'trips'), orderBy('savedAt', 'desc'));
+        const snap = await getDocs(q);
+
+        if (snap.empty) {
+          container.innerHTML = `<div style="text-align:center;padding:2rem;color:var(--muted);font-size:0.85rem">
+            Нямате запазени трипове. Изчислете маршрут и натиснете „💾 Запази трип".
+          </div>`;
+          return;
+        }
+
+        const trips = [];
+        snap.forEach(d => trips.push({ id: d.id, ...d.data() }));
+
+        container.innerHTML = trips.map(t => {
+          const date = t.savedAt?.toDate
+            ? t.savedAt.toDate().toLocaleDateString('bg-BG', { day: 'numeric', month: 'short', year: 'numeric' })
+            : t.departDate || '—';
+          const route = `${t.origin || '?'} → ${t.destination || '?'}${t.isRoundTrip ? ' → ' + (t.origin || '?') : ''}`;
+          return `
+          <div class="trip-item">
+            <div class="trip-route">${route}</div>
+            <div class="trip-meta">
+              <span>📅 ${date}</span>
+              <span>📏 ${t.totalDistance || '—'} км</span>
+              <span>⚡ ${(t.totalKwh || 0).toFixed(1)} kWh</span>
+              ${t.carName ? `<span>🚗 ${t.carName}</span>` : ''}
+              ${t.cheapestCost != null ? `<span>💰 ${t.cheapestCost.toFixed(2)} лв (${t.cheapestNetwork || ''})</span>` : ''}
+            </div>
+            <div class="trip-actions">
+              <button class="car-action-btn danger"
+                onclick="window._deleteTrip('${t.id}')">🗑 Изтрий</button>
+            </div>
+          </div>`;
+        }).join('');
+
+      } catch (e) {
+        container.innerHTML = `<div style="color:var(--danger);font-size:0.85rem;padding:1rem">❌ Грешка при зареждане на трипове.</div>`;
+      }
+    }
+
+    // ===== SAVE CAR =====
+    window.saveCar = async function() {
       const user = auth.currentUser;
       if (!user) return;
 
-      const carName = document.getElementById('profileCarName').value.trim();
+      const carName         = document.getElementById('profileCarName').value.trim();
       const batteryCapacity = parseFloat(document.getElementById('profileBattery').value);
-      const realRange = parseFloat(document.getElementById('profileRange').value);
-      const msg = document.getElementById('profileMsg');
+      const realRange       = parseFloat(document.getElementById('profileRange').value);
+      const maxChargePower  = parseFloat(document.getElementById('profileMaxCharge').value) || 150;
+      const setAsDefault    = document.getElementById('setAsDefault').checked;
+      const editingId       = document.getElementById('editingCarId').value;
 
       if (!batteryCapacity || !realRange) {
-        msg.style.display = 'block';
-        msg.style.background = 'rgba(239,68,68,0.1)';
-        msg.style.color = 'var(--danger)';
-        msg.textContent = '⚠️ Моля, попълнете капацитета и обхвата.';
+        showProfileMsg('⚠️ Моля, попълнете капацитета и обхвата.', false);
         return;
       }
 
-      const btn = document.getElementById('saveBtn');
+      const btn = document.getElementById('saveCarBtn');
       btn.disabled = true;
       btn.textContent = 'Запазване…';
 
       try {
-        await setDoc(doc(db, 'users', user.uid, 'profile', 'car'), {
-          carName: carName || 'Моят EV',
-          batteryCapacity,
-          realRange,
-          updatedAt: new Date().toISOString(),
-        });
-        msg.style.display = 'block';
-        msg.style.background = 'rgba(16,185,129,0.1)';
-        msg.style.color = 'var(--accent3)';
-        msg.textContent = '✅ Профилът е запазен успешно!';
+        let carId = editingId;
+
+        if (editingId) {
+          // Update existing
+          await updateDoc(doc(db, 'users', user.uid, 'cars', editingId), {
+            carName: carName || 'Моят EV',
+            batteryCapacity,
+            realRange,
+            maxChargePower,
+            updatedAt: serverTimestamp(),
+          });
+        } else {
+          // Create new
+          const newRef = await addDoc(collection(db, 'users', user.uid, 'cars'), {
+            carName: carName || 'Моят EV',
+            batteryCapacity,
+            realRange,
+            maxChargePower,
+            isDefault: setAsDefault,
+            createdAt: serverTimestamp(),
+          });
+          carId = newRef.id;
+        }
+
+        // Handle default
+        if (setAsDefault && carId) {
+          await setDoc(doc(db, 'users', user.uid, 'profile', 'cars_meta'), {
+            defaultCarId: carId,
+          }, { merge: true });
+          // Also update legacy profile for backward compat
+          await setDoc(doc(db, 'users', user.uid, 'profile', 'car'), {
+            carName: carName || 'Моят EV',
+            batteryCapacity,
+            realRange,
+            maxChargePower,
+            updatedAt: new Date().toISOString(),
+          }, { merge: true });
+        } else if (!editingId) {
+          // First car? set as default automatically
+          const metaSnap = await getDoc(doc(db, 'users', user.uid, 'profile', 'cars_meta'));
+          if (!metaSnap.exists()) {
+            await setDoc(doc(db, 'users', user.uid, 'profile', 'cars_meta'), {
+              defaultCarId: carId,
+            });
+          }
+        }
+
+        showProfileMsg('✅ Автомобилът е запазен успешно!', true);
+        cancelEdit();
+        await loadCars(user);
+
       } catch (e) {
-        msg.style.display = 'block';
-        msg.style.background = 'rgba(239,68,68,0.1)';
-        msg.style.color = 'var(--danger)';
-        msg.textContent = '❌ Грешка при запазване. Опитайте отново.';
+        showProfileMsg('❌ Грешка при запазване. Опитайте отново.', false);
       }
 
       btn.disabled = false;
-      btn.textContent = '💾 Запази профила';
+      btn.textContent = '💾 Запази автомобила';
+    };
+
+    // ===== SET DEFAULT CAR =====
+    window._setDefaultCar = async function(carId) {
+      const user = auth.currentUser;
+      if (!user) return;
+      try {
+        const carSnap = await getDoc(doc(db, 'users', user.uid, 'cars', carId));
+        if (!carSnap.exists()) return;
+        const carData = carSnap.data();
+
+        await setDoc(doc(db, 'users', user.uid, 'profile', 'cars_meta'), {
+          defaultCarId: carId,
+        }, { merge: true });
+
+        // Update legacy profile
+        await setDoc(doc(db, 'users', user.uid, 'profile', 'car'), {
+          carName: carData.carName,
+          batteryCapacity: carData.batteryCapacity,
+          realRange: carData.realRange,
+          maxChargePower: carData.maxChargePower || 150,
+          updatedAt: new Date().toISOString(),
+        }, { merge: true });
+
+        await loadCars(user);
+      } catch (e) {
+        alert('Грешка при задаване на автомобил по подразбиране.');
+      }
+    };
+
+    // ===== EDIT CAR =====
+    window._editCar = function(carId, car) {
+      document.getElementById('editingCarId').value         = carId;
+      document.getElementById('profileCarName').value       = car.carName || '';
+      document.getElementById('profileBattery').value       = car.batteryCapacity || 75;
+      document.getElementById('profileRange').value         = car.realRange || 400;
+      document.getElementById('profileMaxCharge').value     = car.maxChargePower || 150;
+      document.getElementById('profileEvSearch').value      = car.carName || '';
+      document.getElementById('profileEvClear').classList.toggle('visible', !!(car.carName));
+      document.getElementById('carFormTitle').innerHTML     = `Редактирай автомобил<small>${car.carName || ''}</small>`;
+      document.getElementById('saveCarBtn').textContent     = '💾 Запази промените';
+      document.getElementById('cancelEditBtn').style.display = 'inline-block';
+      document.getElementById('profileMsg').style.display   = 'none';
+      updateProfileConsumption();
+
+      // Scroll to form
+      document.getElementById('tabCars').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    };
+
+    // ===== DELETE CAR =====
+    window._deleteCar = async function(carId) {
+      if (!confirm('Сигурни ли сте, че искате да изтриете този автомобил?')) return;
+      const user = auth.currentUser;
+      if (!user) return;
+      try {
+        await deleteDoc(doc(db, 'users', user.uid, 'cars', carId));
+
+        // If it was default, clear meta
+        const metaSnap = await getDoc(doc(db, 'users', user.uid, 'profile', 'cars_meta'));
+        if (metaSnap.exists() && metaSnap.data().defaultCarId === carId) {
+          await updateDoc(doc(db, 'users', user.uid, 'profile', 'cars_meta'), { defaultCarId: null });
+        }
+
+        await loadCars(user);
+      } catch (e) {
+        alert('Грешка при изтриване.');
+      }
+    };
+
+    // ===== DELETE TRIP =====
+    window._deleteTrip = async function(tripId) {
+      if (!confirm('Изтриване на трипа. Сигурни ли сте?')) return;
+      const user = auth.currentUser;
+      if (!user) return;
+      try {
+        await deleteDoc(doc(db, 'users', user.uid, 'trips', tripId));
+        await loadTrips(user);
+      } catch (e) {
+        alert('Грешка при изтриване на трипа.');
+      }
     };
   </script>
 
   <script>
-    // Show loading on init until auth state resolves
     document.querySelector('.loading-overlay').classList.add('active');
   </script>
 </body>
-</html> 
+</html>

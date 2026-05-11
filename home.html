@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>EVCalc - Home</title>
+  <title>EVCalc - Калкулатор</title>
   <link rel="stylesheet" href="style.css" />
   <link rel="icon" href="/images/icon.ico" type="image/x-icon" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" />
@@ -32,9 +32,21 @@
     <nav>
       <a href="home.html" class="active">Калкулатор</a>
       <a href="auth.html" id="authNavLink">🔑 Вход</a>
+      <a href="profile.html" id="profileNavLink" style="display:none">👤 Профил</a>
       <a href="#" id="logoutNavBtn" style="display:none">🚪 Изход</a>
     </nav>
+    <button class="hamburger" id="hamburgerBtn" aria-label="Меню">
+      <span></span><span></span><span></span>
+    </button>
   </header>
+
+  <!-- MOBILE NAV -->
+  <div class="mobile-nav" id="mobileNav">
+    <a href="home.html" class="active">Калкулатор</a>
+    <a href="auth.html" id="mobileAuthLink">🔑 Вход</a>
+    <a href="profile.html" id="mobileProfileLink" style="display:none">👤 Профил</a>
+    <a href="#" id="mobileLogoutBtn" style="display:none">🚪 Изход</a>
+  </div>
 
   <!-- HERO -->
   <section class="hero">
@@ -60,34 +72,16 @@
           <label for="origin">📍 Начална точка</label>
           <select id="origin" required>
             <option value="">— Избери град —</option>
-            <option value="София">София</option>
-            <option value="Варна">Варна</option>
-            <option value="Пловдив">Пловдив</option>
-            <option value="Бургас">Бургас</option>
-            <option value="Стара Загора">Стара Загора</option>
-            <option value="Велико Търново">Велико Търново</option>
-            <option value="Плевен">Плевен</option>
-            <option value="Русе">Русе</option>
-            <option value="Видин">Видин</option>
-            <option value="Шумен">Шумен</option>
-            <option value="Добрич">Добрич</option>
-            <option value="Монтана">Монтана</option>
-            <option value="Враца">Враца</option>
-            <option value="Ловеч">Ловеч</option>
-            <option value="Габрово">Габрово</option>
-            <option value="Търговище">Търговище</option>
-            <option value="Разград">Разград</option>
-            <option value="Силистра">Силистра</option>
-            <option value="Кърджали">Кърджали</option>
-            <option value="Хасково">Хасково</option>
-            <option value="Пазарджик">Пазарджик</option>
-            <option value="Сливен">Сливен</option>
-            <option value="Ямбол">Ямбол</option>
-            <option value="Перник">Перник</option>
-            <option value="Благоевград">Благоевград</option>
-            <option value="Кюстендил">Кюстендил</option>
-            <option value="Смолян">Смолян</option>
-            <option value="Асеновград">Асеновград</option>
+            <option>София</option><option>Варна</option><option>Пловдив</option>
+            <option>Бургас</option><option>Стара Загора</option><option>Велико Търново</option>
+            <option>Плевен</option><option>Русе</option><option>Видин</option>
+            <option>Шумен</option><option>Добрич</option><option>Монтана</option>
+            <option>Враца</option><option>Ловеч</option><option>Габрово</option>
+            <option>Търговище</option><option>Разград</option><option>Силистра</option>
+            <option>Кърджали</option><option>Хасково</option><option>Пазарджик</option>
+            <option>Сливен</option><option>Ямбол</option><option>Перник</option>
+            <option>Благоевград</option><option>Кюстендил</option><option>Смолян</option>
+            <option>Асеновград</option>
           </select>
         </div>
 
@@ -95,34 +89,16 @@
           <label for="destination">🏁 Дестинация</label>
           <select id="destination" required>
             <option value="">— Избери град —</option>
-            <option value="София">София</option>
-            <option value="Варна">Варна</option>
-            <option value="Пловдив">Пловдив</option>
-            <option value="Бургас">Бургас</option>
-            <option value="Стара Загора">Стара Загора</option>
-            <option value="Велико Търново">Велико Търново</option>
-            <option value="Плевен">Плевен</option>
-            <option value="Русе">Русе</option>
-            <option value="Видин">Видин</option>
-            <option value="Шумен">Шумен</option>
-            <option value="Добрич">Добрич</option>
-            <option value="Монтана">Монтана</option>
-            <option value="Враца">Враца</option>
-            <option value="Ловеч">Ловеч</option>
-            <option value="Габрово">Габрово</option>
-            <option value="Търговище">Търговище</option>
-            <option value="Разград">Разград</option>
-            <option value="Силистра">Силистра</option>
-            <option value="Кърджали">Кърджали</option>
-            <option value="Хасково">Хасково</option>
-            <option value="Пазарджик">Пазарджик</option>
-            <option value="Сливен">Сливен</option>
-            <option value="Ямбол">Ямбол</option>
-            <option value="Перник">Перник</option>
-            <option value="Благоевград">Благоевград</option>
-            <option value="Кюстендил">Кюстендил</option>
-            <option value="Смолян">Смолян</option>
-            <option value="Асеновград">Асеновград</option>
+            <option>София</option><option>Варна</option><option>Пловдив</option>
+            <option>Бургас</option><option>Стара Загора</option><option>Велико Търново</option>
+            <option>Плевен</option><option>Русе</option><option>Видин</option>
+            <option>Шумен</option><option>Добрич</option><option>Монтана</option>
+            <option>Враца</option><option>Ловеч</option><option>Габрово</option>
+            <option>Търговище</option><option>Разград</option><option>Силистра</option>
+            <option>Кърджали</option><option>Хасково</option><option>Пазарджик</option>
+            <option>Сливен</option><option>Ямбол</option><option>Перник</option>
+            <option>Благоевград</option><option>Кюстендил</option><option>Смолян</option>
+            <option>Асеновград</option>
           </select>
         </div>
 
@@ -155,7 +131,7 @@
         </div>
 
         <div class="field">
-          <label>⚠️ Минимален заряд при пристигане на спирка</label>
+          <label>⚠️ Минимален заряд при спирка</label>
           <div class="range-row">
             <input type="range" id="minArrivalCharge" min="5" max="40" value="20" />
             <span class="range-val" id="minArrivalChargeVal">20%</span>
@@ -177,90 +153,111 @@
           <label for="weather">🌡️ Метеорологични условия</label>
           <select id="weather">
             <option value="sunny">☀️ Слънчево (базово)</option>
-            <option value="cloudy">☁️ Облачно (+4%)</option>
-            <option value="rainy">🌧️ Дъждовно (+8%)</option>
-            <option value="cold">❄️ Студено под 0°C (+20%)</option>
-            <option value="hot">🌡️ Горещо над 35°C (+10%)</option>
+            <option value="cloudy">🌤 Облачно (-3%)</option>
+            <option value="rainy">🌧 Дъжд (-7%)</option>
+            <option value="cold">❄️ Студено под 5°C (-18%)</option>
+            <option value="snow">🌨 Сняг (-25%)</option>
           </select>
         </div>
 
         <div class="field">
           <label for="traffic">🚦 Трафик</label>
           <select id="traffic">
-            <option value="free">🟢 Свободен (базово)</option>
-            <option value="moderate" selected>🟡 Умерен (+10%)</option>
-            <option value="heavy">🔴 Задръстване (+22%)</option>
+            <option value="free">🟢 Без трафик (0%)</option>
+            <option value="moderate" selected>🟡 Умерен трафик (+8%)</option>
+            <option value="heavy">🔴 Тежък трафик (+18%)</option>
           </select>
         </div>
 
         <div class="field">
           <label for="drivingStyle">🏎️ Стил на шофиране</label>
           <select id="drivingStyle">
-            <option value="eco">🌿 Еко (-10%)</option>
-            <option value="normal" selected>🚗 Нормален (базово)</option>
-            <option value="sport">⚡ Спортен (+18%)</option>
+            <option value="eco">🐢 Икономично (-8%)</option>
+            <option value="normal" selected>🚗 Нормално (0%)</option>
+            <option value="sport">🏎 Спортно (+15%)</option>
           </select>
         </div>
 
-        <div style="margin-top:1rem;padding:1rem;background:var(--surface);border-radius:10px;border:1px solid var(--border)">
+        <div class="field">
+          <label for="highwayPct">🛣️ Дял магистрала (%)</label>
+          <div class="range-row">
+            <input type="range" id="highwayPct" min="0" max="100" value="60" />
+            <span class="range-val" id="highwayPctVal">60% маг.</span>
+          </div>
+          <div style="font-size:0.75rem;color:var(--muted);margin-top:0.4rem;line-height:1.5">
+            Останалото (40%) се изчислява като смесено/извънградско. Магистралата увеличава разхода с ~38%.
+          </div>
+        </div>
+
+        <div style="margin-top:0.75rem;padding:1rem;background:var(--surface);border-radius:10px;border:1px solid var(--border)">
           <div style="font-size:0.72rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.07em;margin-bottom:0.6rem;font-weight:700">
             📈 Динамично ценообразуване
           </div>
           <p style="font-size:0.82rem;color:var(--muted);line-height:1.6">
-            Цените на ток варират динамично. Уикендите и пиковите часове (17–20ч) носят надценка до <strong style="color:var(--warning)">+18%</strong>. Приложението взема предвид деня и часа на тръгване.
+            Уикендите и пиковите часове (17–20ч) носят надценка до <strong style="color:var(--warning)">+18%</strong>.
           </p>
         </div>
       </div>
     </div>
 
-    <!-- ROW 2: Параметри на автомобила + Зарядни мрежи -->
+    <!-- ROW 2: Автомобил + Мрежи -->
     <div class="calculator-grid">
 
       <!-- ПАРАМЕТРИ НА АВТОМОБИЛА -->
       <div class="card">
         <div class="card-header">
           <div class="card-icon purple">🚗</div>
-          <h2>Параметри на автомобила<small>Въведете данните на вашия EV</small></h2>
+          <h2>Параметри на автомобила<small>Изберете от базата или въведете ръчно</small></h2>
+        </div>
+
+        <!-- Auto-load badge -->
+        <div class="car-loaded-badge" id="carLoadedBadge"></div>
+        <div class="not-logged-hint" id="notLoggedHint">
+          💡 Влезте в профила си за автоматично зареждане на параметрите.
+        </div>
+
+        <!-- EV SEARCH -->
+        <div class="field">
+          <label>🔍 Търси автомобил…</label>
+          <div class="ev-search-wrap">
+            <input type="text" id="evSearchInput" placeholder="напр. Tesla, VW ID, Hyundai…" autocomplete="off" />
+            <button class="ev-search-clear" id="evSearchClear" type="button">✕</button>
+            <div class="ev-dropdown" id="evDropdown"></div>
+          </div>
+          <div class="ev-selected-badge" id="evSelectedBadge"></div>
         </div>
 
         <div class="field-row">
           <div class="field" style="margin-bottom:0">
             <label for="batteryCapacity">🔋 Батерия (kWh)</label>
-            <input type="number" id="batteryCapacity" min="10" max="200" step="0.5" value="75"
-              placeholder="напр. 75" />
+            <input type="number" id="batteryCapacity" min="10" max="200" step="0.5" value="75" placeholder="напр. 75" />
           </div>
           <div class="field" style="margin-bottom:0">
-            <label for="realRange">📏 Обхват (км)</label>
-            <input type="number" id="realRange" min="50" max="1000" step="1" value="400"
-              placeholder="напр. 400" />
+            <label for="realRange">📏 WLTP обхват (км)</label>
+            <input type="number" id="realRange" min="50" max="1000" step="1" value="400" placeholder="напр. 400" />
           </div>
         </div>
 
         <div style="margin-top:1rem;padding:0.9rem 1rem;background:var(--surface);border-radius:10px;border:1px solid var(--border);display:flex;align-items:center;justify-content:space-between">
           <div>
-            <div style="font-size:0.72rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.07em;font-weight:700;margin-bottom:0.2rem">
-              ⚡ Изчислен разход
-            </div>
+            <div style="font-size:0.72rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.07em;font-weight:700;margin-bottom:0.2rem">⚡ Изчислен разход</div>
             <div style="font-size:0.75rem;color:var(--muted)">Батерия ÷ Обхват × 100</div>
           </div>
-          <div id="consumptionDisplay"
-            style="font-family:var(--mono);font-size:1.2rem;font-weight:700;color:var(--accent)">
-            18.8 kWh/100км
-          </div>
+          <div id="consumptionDisplay" style="font-family:var(--mono);font-size:1.2rem;font-weight:700;color:var(--accent)">18.8 kWh/100км</div>
         </div>
 
         <div class="field" style="margin-top:1rem">
           <label for="connectorType">🔌 Тип зарядна букса</label>
           <select id="connectorType">
-            <option value="type2">Type 2 (AC)</option>
             <option value="ccs">CCS Combo 2</option>
+            <option value="type2">Type 2 (AC)</option>
             <option value="chademo">CHAdeMO</option>
             <option value="nacs">Tesla NACS</option>
           </select>
         </div>
 
         <div class="field">
-          <label>⚡ Максимална мощност на зареждане (kW)</label>
+          <label>⚡ Макс. мощност на зареждане (kW)</label>
           <div class="range-row">
             <input type="range" id="maxChargePower" min="7" max="350" value="150" />
             <span class="range-val" id="maxChargePowerVal">150 kW</span>
@@ -269,15 +266,10 @@
 
         <div style="padding:0.9rem 1rem;background:var(--surface);border-radius:10px;border:1px solid var(--border);display:flex;align-items:center;justify-content:space-between">
           <div>
-            <div style="font-size:0.72rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.07em;font-weight:700;margin-bottom:0.2rem">
-              🕐 Прогнозно време за зареждане
-            </div>
+            <div style="font-size:0.72rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.07em;font-weight:700;margin-bottom:0.2rem">🕐 Прогнозно зареждане</div>
             <div style="font-size:0.75rem;color:var(--muted)">от 20% до 100%</div>
           </div>
-          <div id="chargeTimeDisplay"
-            style="font-family:var(--mono);font-size:1.1rem;font-weight:700;color:var(--accent)">
-            — мин
-          </div>
+          <div id="chargeTimeDisplay" style="font-family:var(--mono);font-size:1.1rem;font-weight:700;color:var(--accent)">— мин</div>
         </div>
 
         <div style="margin-top:1rem">
@@ -298,10 +290,7 @@
           <div class="card-icon green">⚡</div>
           <h2>Зарядни мрежи<small>Изберете достъпните за вас</small></h2>
         </div>
-
-        <div class="stations-list" id="stationList">
-          <!-- Rendered by JS -->
-        </div>
+        <div id="stationList"></div>
       </div>
     </div>
 
@@ -311,11 +300,9 @@
     </button>
 
     <!-- RESULTS -->
-    <div id="results" style="margin-top:2rem">
-      <!-- Rendered by JS -->
-    </div>
+    <div id="results" style="margin-top:2rem"></div>
 
-    <!-- Map section -->
+    <!-- MAP -->
     <div id="mapSection" style="display:none;margin-top:2rem">
       <h3 style="font-size:1rem;font-weight:700;color:var(--text);margin-bottom:0.75rem;padding:0 0.25rem">
         🗺️ Зарядни станции по маршрута
@@ -327,66 +314,201 @@
 
   <!-- FOOTER -->
   <footer>
-    <span>ЕВКалк</span> — Калкулатор за разход на електромобил &nbsp;·&nbsp;
+    <span>EVCalc</span> — Калкулатор за разход на електромобил &nbsp;·&nbsp;
     Цените са примерни и не представляват реални тарифи &nbsp;·&nbsp;
     Made with ⚡ in Bulgaria
   </footer>
 
+  <script>
+    // Highway % slider display
+    document.addEventListener('DOMContentLoaded', () => {
+      const hSlider = document.getElementById('highwayPct');
+      const hVal = document.getElementById('highwayPctVal');
+      if (hSlider && hVal) {
+        hSlider.addEventListener('input', () => {
+          hVal.textContent = hSlider.value + '% маг.';
+        });
+      }
+    });
+  </script>
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
   <script src="script.js"></script>
 
-  <!-- Firebase auth state + profile load -->
   <script type="module">
     import { app, db } from './firebase-config.js';
     import { getAuth, onAuthStateChanged, signOut } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js';
-    import { doc, getDoc } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';
+    import { doc, getDoc, collection, addDoc, serverTimestamp }
+      from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';
 
     const auth = getAuth(app);
 
-    // Update nav links based on auth state
-    onAuthStateChanged(auth, (user) => {
+    function syncMobileNav(user) {
+      const mobileAuthLink = document.getElementById('mobileAuthLink');
+      const mobileProfileLink = document.getElementById('mobileProfileLink');
+      const mobileLogoutBtn = document.getElementById('mobileLogoutBtn');
+      if (!mobileAuthLink) return;
+      if (user) {
+        mobileAuthLink.style.display = 'none';
+        const display = user.email.split('@')[0];
+        if (mobileProfileLink) {
+          mobileProfileLink.style.display = 'block';
+          mobileProfileLink.textContent = '👤 ' + display;
+        }
+        if (mobileLogoutBtn) mobileLogoutBtn.style.display = 'block';
+      } else {
+        mobileAuthLink.style.display = 'block';
+        if (mobileProfileLink) mobileProfileLink.style.display = 'none';
+        if (mobileLogoutBtn) mobileLogoutBtn.style.display = 'none';
+      }
+    }
+
+    onAuthStateChanged(auth, async (user) => {
       const link = document.getElementById('authNavLink');
       const logoutBtn = document.getElementById('logoutNavBtn');
+      const profileLink = document.getElementById('profileNavLink');
+      const badge = document.getElementById('carLoadedBadge');
+      const hint = document.getElementById('notLoggedHint');
+
       if (user) {
         const display = user.email.split('@')[0];
-        link.textContent = '👤 ' + display;
-        link.href = 'profile.html';
-        logoutBtn.style.display = 'inline';
+        if (link) link.style.display = 'none';
+        if (logoutBtn) logoutBtn.style.display = 'inline';
+        if (profileLink) {
+          profileLink.style.display = 'inline';
+          profileLink.textContent = '👤 ' + display;
+        }
+        if (hint) hint.classList.remove('visible');
+
+        // Auto-load default car
+        try {
+          // Try new cars array first
+          const carsSnap = await getDoc(doc(db, 'users', user.uid, 'profile', 'cars_meta'));
+          let carData = null;
+
+          if (carsSnap.exists()) {
+            const meta = carsSnap.data();
+            const defaultId = meta.defaultCarId;
+            if (defaultId) {
+              const carSnap = await getDoc(doc(db, 'users', user.uid, 'cars', defaultId));
+              if (carSnap.exists()) carData = carSnap.data();
+            }
+          }
+
+          // Fallback: legacy single-car profile
+          if (!carData) {
+            const legacySnap = await getDoc(doc(db, 'users', user.uid, 'profile', 'car'));
+            if (legacySnap.exists()) carData = legacySnap.data();
+          }
+
+          if (carData) {
+            if (carData.batteryCapacity) document.getElementById('batteryCapacity').value = carData.batteryCapacity;
+            if (carData.realRange) document.getElementById('realRange').value = carData.realRange;
+            if (carData.maxChargePower) {
+              const el = document.getElementById('maxChargePower');
+              el.value = Math.min(carData.maxChargePower, parseFloat(el.max));
+              el.dispatchEvent(new Event('input'));
+            }
+            document.getElementById('batteryCapacity').dispatchEvent(new Event('input'));
+            const name = carData.carName || carData.name || 'Автомобил';
+            if (badge) {
+              badge.innerHTML = `🚗 Заредено: <strong>${name}</strong>`;
+              badge.classList.add('visible');
+            }
+            // Populate search input too
+            const evInput = document.getElementById('evSearchInput');
+            if (evInput && (carData.carName || carData.name)) evInput.value = carData.carName || carData.name;
+          }
+        } catch (e) {
+          console.warn('Auto-load car failed:', e);
+        }
       } else {
-        link.textContent = '🔑 Вход';
-        link.href = 'auth.html';
-        logoutBtn.style.display = 'none';
+        if (link) link.style.display = 'inline';
+        if (logoutBtn) logoutBtn.style.display = 'none';
+        if (profileLink) profileLink.style.display = 'none';
+        if (badge) badge.classList.remove('visible');
+        if (hint) hint.classList.add('visible');
       }
+      syncMobileNav(user);
     });
 
-    // Logout button
-    document.getElementById('logoutNavBtn').addEventListener('click', async (e) => {
+    document.getElementById('logoutNavBtn')?.addEventListener('click', async (e) => {
       e.preventDefault();
       await signOut(auth);
       window.location.href = 'auth.html';
     });
 
-    // Load profile button handler
+    document.getElementById('mobileLogoutBtn')?.addEventListener('click', async (e) => {
+      e.preventDefault();
+      await signOut(auth);
+      window.location.href = 'auth.html';
+    });
+
+    // Load profile button
     window.loadProfile = async function() {
       const user = auth.currentUser;
-      if (!user) {
-        showToast('⚠️ Влезте в профила си, за да заредите данни.');
-        return;
-      }
+      if (!user) { showToast('⚠️ Влезте в профила си, за да заредите данни.'); return; }
       try {
-        const snap = await getDoc(doc(db, 'users', user.uid, 'profile', 'car'));
-        if (snap.exists()) {
-          const data = snap.data();
+        // Try new schema first
+        const meta = await getDoc(doc(db, 'users', user.uid, 'profile', 'cars_meta'));
+        let data = null;
+        if (meta.exists() && meta.data().defaultCarId) {
+          const carSnap = await getDoc(doc(db, 'users', user.uid, 'cars', meta.data().defaultCarId));
+          if (carSnap.exists()) data = carSnap.data();
+        }
+        if (!data) {
+          const snap = await getDoc(doc(db, 'users', user.uid, 'profile', 'car'));
+          if (snap.exists()) data = snap.data();
+        }
+        if (data) {
           if (data.batteryCapacity) document.getElementById('batteryCapacity').value = data.batteryCapacity;
           if (data.realRange) document.getElementById('realRange').value = data.realRange;
-          // Trigger consumption recalculation
+          if (data.maxChargePower) {
+            const el = document.getElementById('maxChargePower');
+            el.value = Math.min(data.maxChargePower, parseFloat(el.max));
+            el.dispatchEvent(new Event('input'));
+          }
           document.getElementById('batteryCapacity').dispatchEvent(new Event('input'));
-          showToast('✅ Профилът е зареден успешно!');
+          const name = data.carName || data.name || 'Автомобил';
+          const evInput = document.getElementById('evSearchInput');
+          if (evInput) evInput.value = name;
+          showToast('✅ Профилът е зареден!');
         } else {
-          showToast('⚠️ Нямате запазен профил. Отидете на страница Профил.');
+          showToast('⚠️ Нямате запазен автомобил. Отидете на Профил.');
         }
+      } catch (e) { showToast('❌ Грешка при зареждане.'); }
+    };
+
+    // Save trip
+    window._saveTripFn = async function(results) {
+      const user = auth.currentUser;
+      if (!user) { showToast('⚠️ Влезте в профила си, за да запазите трипа.'); return; }
+      if (!results) { showToast('⚠️ Изчислете маршрут преди да запазите.'); return; }
+
+      const btn = document.getElementById('saveTripBtn');
+      if (btn) { btn.disabled = true; btn.textContent = 'Запазване…'; }
+
+      try {
+        await addDoc(collection(db, 'users', user.uid, 'trips'), {
+          origin: results.origin,
+          destination: results.destination,
+          departDate: results.departDate,
+          returnDate: results.returnDate || null,
+          isRoundTrip: results.isRoundTrip,
+          totalDistance: results.totalDistance,
+          totalKwh: parseFloat(results.totalKwh.toFixed(2)),
+          chargeStops: results.chargeStops,
+          cheapestCost: results.cheapest ? parseFloat(results.cheapest.totalCost.toFixed(2)) : null,
+          cheapestNetwork: results.cheapest ? results.cheapest.name : null,
+          carName: results.car.carName,
+          batteryCapacity: results.car.batteryCapacity,
+          savedAt: serverTimestamp(),
+        });
+        showToast('✅ Трипът е запазен!');
+        if (btn) { btn.disabled = false; btn.textContent = '💾 Запази трип'; }
       } catch (e) {
-        showToast('❌ Грешка при зареждане на профила.');
+        showToast('❌ Грешка при запазване на трипа.');
+        if (btn) { btn.disabled = false; btn.textContent = '💾 Запази трип'; }
       }
     };
   </script>
