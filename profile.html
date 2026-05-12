@@ -605,7 +605,11 @@
               <span>📏 ${t.totalDistance || '—'} км</span>
               <span>⚡ ${(t.totalKwh || 0).toFixed(1)} kWh</span>
               ${t.carName ? `<span>🚗 ${t.carName}</span>` : ''}
+<<<<<<< HEAD
               ${t.cheapestCost != null ? `<span>💰 ${t.cheapestCost.toFixed(2)} € (${t.cheapestNetwork || ''})</span>` : ''}
+=======
+              ${t.cheapestCost != null ? `<span>💰 ${t.cheapestCost.toFixed(2)} лв (${t.cheapestNetwork || ''})</span>` : ''}
+>>>>>>> 1e6894f5fa297c1a51d3f7b4ecfd763dbbde2bd8
             </div>
             <div class="trip-actions">
               <button class="car-action-btn danger"
