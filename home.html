@@ -243,10 +243,20 @@
     </a>
     <nav>
       <a href="home.html" class="active">Калкулатор</a>
+      <a href="profile.html" id="profileNavLink">👤 Профил</a>
       <a href="auth.html" id="authNavLink">🔑 Вход</a>
       <a href="#" id="logoutNavBtn" style="display:none">🚪 Изход</a>
     </nav>
+    <button class="hamburger" id="hamburgerBtn" aria-label="Меню">☰</button>
   </header>
+
+  <!-- MOBILE NAV -->
+  <div class="mobile-nav" id="mobileNav">
+    <a href="home.html" class="active">Калкулатор</a>
+    <a href="profile.html" id="mobileProfileLink">👤 Профил</a>
+    <a href="auth.html" id="mobileAuthLink">🔑 Вход</a>
+    <a href="#" id="mobileLogoutBtn" style="display:none">🚪 Изход</a>
+  </div>
 
   <!-- HERO -->
   <section class="hero">
@@ -547,6 +557,23 @@
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
   <script src="script.js"></script>
+  <script>
+    // ===== HAMBURGER =====
+    document.addEventListener('DOMContentLoaded', () => {
+      const btn = document.getElementById('hamburgerBtn');
+      const nav = document.getElementById('mobileNav');
+      if (btn && nav) {
+        btn.addEventListener('click', () => {
+          const open = nav.classList.toggle('open');
+          btn.textContent = open ? '✕' : '☰';
+        });
+        nav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+          nav.classList.remove('open');
+          btn.textContent = '☰';
+        }));
+      }
+    });
+  </script>
 
   <!-- Firebase auth state + profile load -->
   <script type="module">
@@ -558,26 +585,41 @@
 
     // Update nav links based on auth state
     onAuthStateChanged(auth, (user) => {
-      const link = document.getElementById('authNavLink');
+      const authLink = document.getElementById('authNavLink');
+      const mobileAuthLink = document.getElementById('mobileAuthLink');
+      const profileLink = document.getElementById('profileNavLink');
+      const mobileProfileLink = document.getElementById('mobileProfileLink');
       const logoutBtn = document.getElementById('logoutNavBtn');
+      const mobileLogoutBtn = document.getElementById('mobileLogoutBtn');
+
       if (user) {
         const display = user.email.split('@')[0];
-        link.textContent = '👤 ' + display;
-        link.href = 'profile.html';
-        logoutBtn.style.display = 'inline';
+        if (profileLink) profileLink.textContent = '👤 ' + display;
+        if (mobileProfileLink) mobileProfileLink.textContent = '👤 ' + display;
+        if (authLink) authLink.style.display = 'none';
+        if (mobileAuthLink) mobileAuthLink.style.display = 'none';
+        if (logoutBtn) logoutBtn.style.display = 'inline';
+        if (mobileLogoutBtn) mobileLogoutBtn.style.display = 'block';
       } else {
-        link.textContent = '🔑 Вход';
-        link.href = 'auth.html';
-        logoutBtn.style.display = 'none';
+        if (profileLink) profileLink.textContent = '👤 Профил';
+        if (mobileProfileLink) mobileProfileLink.textContent = '👤 Профил';
+        if (authLink) authLink.style.display = 'inline';
+        if (mobileAuthLink) mobileAuthLink.style.display = 'block';
+        if (logoutBtn) logoutBtn.style.display = 'none';
+        if (mobileLogoutBtn) mobileLogoutBtn.style.display = 'none';
       }
     });
 
     // Logout button
-    document.getElementById('logoutNavBtn').addEventListener('click', async (e) => {
+    const handleLogout = async (e) => {
       e.preventDefault();
       await signOut(auth);
       window.location.href = 'auth.html';
-    });
+    };
+    const logBtn = document.getElementById('logoutNavBtn');
+    if (logBtn) logBtn.addEventListener('click', handleLogout);
+    const mLogBtn = document.getElementById('mobileLogoutBtn');
+    if (mLogBtn) mLogBtn.addEventListener('click', handleLogout);
 
     // Load profile button handler
     window.loadProfile = async function() {

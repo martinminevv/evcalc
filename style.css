@@ -917,7 +917,7 @@ footer span { color: var(--accent); }
   display: none;
   background: none;
   border: none;
-  color: var(--text);
+  color: var(--accent);
   font-size: 1.5rem;
   cursor: pointer;
   z-index: 101;
@@ -948,7 +948,7 @@ footer span { color: var(--accent); }
 }
 
 .mobile-nav a {
-  color: var(--text);
+  color: var(--accent);
   text-decoration: none;
   font-size: 1.1rem;
   font-weight: 600;
