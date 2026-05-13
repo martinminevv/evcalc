@@ -11,6 +11,7 @@ const CHARGING_NETWORKS = [
   { id: 'evgo', name: 'EVgo', type: 'fast', power: '100 kW', dot: '#10b981', basePrice: 0.45, badge: 'badge-fast' },
   { id: 'blink', name: 'Blink', type: 'normal', power: '7 kW', dot: '#64748b', basePrice: 0.29, badge: 'badge-normal' },
   { id: 'recharge', name: 'Recharge BG', type: 'fast', power: '50 kW', dot: '#8b5cf6', basePrice: 0.39, badge: 'badge-fast' },
+  { id: 'fines', name: 'Fines', type: 'fast', power: '50 kW', dot: '#f97316', basePrice: 0.38, badge: 'badge-fast' },
 ];
 
 const WEATHER_MODIFIERS = {
@@ -100,6 +101,13 @@ const BG_CHARGING_STATIONS = [
   { name: 'Recharge BG — Добрич', lat: 43.5697, lng: 27.8279, network: 'Recharge BG', power: '50 kW' },
   { name: 'Recharge BG — Видин', lat: 43.9907, lng: 22.8680, network: 'Recharge BG', power: '50 kW' },
   { name: 'Recharge BG — Монтана', lat: 43.4115, lng: 23.2243, network: 'Recharge BG', power: '50 kW' },
+  { name: 'Fines — София Парадайс Център', lat: 42.6506, lng: 23.2714, network: 'Fines', power: '50 kW' },
+  { name: 'Fines — Пловдив Кауфланд', lat: 42.1389, lng: 24.7483, network: 'Fines', power: '50 kW' },
+  { name: 'Fines — Варна Гранд Мол', lat: 43.2069, lng: 27.9059, network: 'Fines', power: '50 kW' },
+  { name: 'Fines — Бургас Мол Галерия', lat: 42.4979, lng: 27.4710, network: 'Fines', power: '50 kW' },
+  { name: 'Fines — Стара Загора', lat: 42.4283, lng: 25.6201, network: 'Fines', power: '50 kW' },
+  { name: 'Fines — Велико Търново', lat: 43.0812, lng: 25.6255, network: 'Fines', power: '50 kW' },
+  { name: 'Fines — Русе Сити Център', lat: 43.8389, lng: 25.9573, network: 'Fines', power: '50 kW' },
 ];
 
 // --- STATE ---
@@ -827,6 +835,7 @@ function showChargingMap(origin, destination, routeGeometry) {
     'Eldrive':     '#10b981',
     'EVN':         '#8b5cf6',
     'Recharge BG': '#64748b',
+    'Fines':       '#f97316',
   };
 
   // Returns minimum distance from point (pLat, pLng) to any segment in routePoints array
